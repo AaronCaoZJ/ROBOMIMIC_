@@ -359,7 +359,8 @@ def main(args):
         # train and validate (if enabled) for 3 gradient steps, for 2 epochs
         config.experiment.epoch_every_n_steps = 3
         config.experiment.validation_epoch_every_n_steps = 3
-        config.train.num_epochs = 2
+        # config.train.num_epochs = 20
+        config.train.num_epochs = 20
 
         # if rollouts are enabled, try 2 rollouts at end of each epoch, with 10 environment steps
         config.experiment.rollout.rate = 1

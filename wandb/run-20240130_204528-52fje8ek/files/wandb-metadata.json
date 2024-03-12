@@ -1,0 +1,60 @@
+{
+    "os": "Linux-5.15.0-92-generic-x86_64-with-glibc2.17",
+    "python": "3.8.18",
+    "heartbeatAt": "2024-01-30T12:45:30.904012",
+    "startedAt": "2024-01-30T12:45:28.257084",
+    "docker": null,
+    "cuda": null,
+    "args": [],
+    "state": "running",
+    "program": "/home/aurora/RoboMimic_/robomimic/robomimic/scripts/test_wandb.py",
+    "codePathLocal": "robomimic/scripts/test_wandb.py",
+    "codePath": "robomimic/scripts/test_wandb.py",
+    "git": {
+        "remote": "https://github.com/ARISE-Initiative/robomimic.git",
+        "commit": "b4f2d173f8161a1bedf13b5f045f05b4d6d38d9e"
+    },
+    "email": null,
+    "root": "/home/aurora/RoboMimic_/robomimic",
+    "host": "ubuntu",
+    "username": "aurora",
+    "executable": "/home/aurora/anaconda3/envs/robomimic_venv/bin/python",
+    "cpu_count": 4,
+    "cpu_count_logical": 4,
+    "cpu_freq": {
+        "current": 2994.372,
+        "min": 0.0,
+        "max": 0.0
+    },
+    "cpu_freq_per_core": [
+        {
+            "current": 2994.372,
+            "min": 0.0,
+            "max": 0.0
+        },
+        {
+            "current": 2994.372,
+            "min": 0.0,
+            "max": 0.0
+        },
+        {
+            "current": 2994.372,
+            "min": 0.0,
+            "max": 0.0
+        },
+        {
+            "current": 2994.372,
+            "min": 0.0,
+            "max": 0.0
+        }
+    ],
+    "disk": {
+        "/": {
+            "total": 38.580322265625,
+            "used": 33.769775390625
+        }
+    },
+    "memory": {
+        "total": 3.785675048828125
+    }
+}

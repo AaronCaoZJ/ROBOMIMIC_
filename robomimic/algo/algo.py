@@ -322,7 +322,7 @@ class Algo(object):
             model_dict (dict): a dictionary saved by self.serialize() that contains
                 the same keys as @self.network_classes
         """
-        self.nets.load_state_dict(model_dict)
+        self.nets.load_state_dict(model_dict, strict=False)
 
     def __repr__(self):
         """

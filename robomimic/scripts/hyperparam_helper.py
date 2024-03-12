@@ -106,6 +106,12 @@ def make_generator(config_file, script_file):
         ], 
         value_names=["1024", "0"],
     )
+    generator.add_param(
+        key="experiment.logging.log_wandb",
+        name="", 
+        group=-1, 
+        values=[True],
+    )
 
     return generator
 
