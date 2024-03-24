@@ -1,0 +1,440 @@
+
+============= Initialized Observation Utils with Obs Spec =============
+
+using obs modality: low_dim with keys: ['object', 'robot0_gripper_qpos', 'robot0_eef_quat', 'robot0_eef_pos']
+using obs modality: rgb with keys: []
+using obs modality: depth with keys: []
+using obs modality: scan with keys: []
+
+============= Loaded Environment Metadata =============
+obs key object with shape (10,)
+obs key robot0_eef_pos with shape (3,)
+obs key robot0_eef_quat with shape (4,)
+obs key robot0_gripper_qpos with shape (2,)
+[robosuite WARNING] No private macro file found! (macros.py:53)
+[robosuite WARNING] It is recommended to use a private macro file (macros.py:54)
+[robosuite WARNING] To setup, run: python /home/aurora/RoboMimic_/robosuite/robosuite/scripts/setup_macros.py (macros.py:55)
+Incompatible version of OpenGL_accelerate found, need at least (3, 1, 5) found (3, 1, 3)
+Created environment with name Lift
+Action size is 7
+FrameStackWrapper(
+    num_frames=2
+    env=Lift
+    {
+        "camera_depths": false,
+        "camera_heights": 84,
+        "camera_widths": 84,
+        "control_freq": 20,
+        "controller_configs": {
+            "control_delta": true,
+            "damping": 1,
+            "damping_limits": [
+                0,
+                10
+            ],
+            "impedance_mode": "fixed",
+            "input_max": 1,
+            "input_min": -1,
+            "interpolation": null,
+            "kp": 150,
+            "kp_limits": [
+                0,
+                300
+            ],
+            "orientation_limits": null,
+            "output_max": [
+                0.05,
+                0.05,
+                0.05,
+                0.5,
+                0.5,
+                0.5
+            ],
+            "output_min": [
+                -0.05,
+                -0.05,
+                -0.05,
+                -0.5,
+                -0.5,
+                -0.5
+            ],
+            "position_limits": null,
+            "ramp_ratio": 0.2,
+            "type": "OSC_POSE",
+            "uncouple_pos_ori": true
+        },
+        "has_offscreen_renderer": true,
+        "has_renderer": false,
+        "ignore_done": true,
+        "reward_shaping": false,
+        "robots": [
+            "Panda"
+        ],
+        "use_camera_obs": false,
+        "use_object_obs": true
+    }
+)
+
+number of parameters: 6.576359e+07
+
+============= Model Summary =============
+DiffusionPolicyUNet (
+  ModuleDict(
+    (policy): ModuleDict(
+      (obs_encoder): ObservationGroupEncoder(
+          group=obs
+          ObservationEncoder(
+              Key(
+                  name=object
+                  shape=[10]
+                  modality=low_dim
+                  randomizer=None
+                  net=None
+                  sharing_from=None
+              )
+              Key(
+                  name=robot0_eef_pos
+                  shape=[3]
+                  modality=low_dim
+                  randomizer=None
+                  net=None
+                  sharing_from=None
+              )
+              Key(
+                  name=robot0_eef_quat
+                  shape=[4]
+                  modality=low_dim
+                  randomizer=None
+                  net=None
+                  sharing_from=None
+              )
+              Key(
+                  name=robot0_gripper_qpos
+                  shape=[2]
+                  modality=low_dim
+                  randomizer=None
+                  net=None
+                  sharing_from=None
+              )
+              output_shape=[19]
+          )
+      )
+      (noise_pred_net): ConditionalUnet1D(
+        (mid_modules): ModuleList(
+          (0-1): 2 x ConditionalResidualBlock1D(
+            (blocks): ModuleList(
+              (0-1): 2 x Conv1dBlock(
+                (block): Sequential(
+                  (0): Conv1d(1024, 1024, kernel_size=(5,), stride=(1,), padding=(2,))
+                  (1): GroupNorm(8, 1024, eps=1e-05, affine=True)
+                  (2): Mish()
+                )
+              )
+            )
+            (cond_encoder): Sequential(
+              (0): Mish()
+              (1): Linear(in_features=294, out_features=2048, bias=True)
+              (2): Unflatten(dim=-1, unflattened_size=(-1, 1))
+            )
+            (residual_conv): Identity()
+          )
+        )
+        (diffusion_step_encoder): Sequential(
+          (0): SinusoidalPosEmb()
+          (1): Linear(in_features=256, out_features=1024, bias=True)
+          (2): Mish()
+          (3): Linear(in_features=1024, out_features=256, bias=True)
+        )
+        (up_modules): ModuleList(
+          (0): ModuleList(
+            (0): ConditionalResidualBlock1D(
+              (blocks): ModuleList(
+                (0): Conv1dBlock(
+                  (block): Sequential(
+                    (0): Conv1d(2048, 512, kernel_size=(5,), stride=(1,), padding=(2,))
+                    (1): GroupNorm(8, 512, eps=1e-05, affine=True)
+                    (2): Mish()
+                  )
+                )
+                (1): Conv1dBlock(
+                  (block): Sequential(
+                    (0): Conv1d(512, 512, kernel_size=(5,), stride=(1,), padding=(2,))
+                    (1): GroupNorm(8, 512, eps=1e-05, affine=True)
+                    (2): Mish()
+                  )
+                )
+              )
+              (cond_encoder): Sequential(
+                (0): Mish()
+                (1): Linear(in_features=294, out_features=1024, bias=True)
+                (2): Unflatten(dim=-1, unflattened_size=(-1, 1))
+              )
+              (residual_conv): Conv1d(2048, 512, kernel_size=(1,), stride=(1,))
+            )
+            (1): ConditionalResidualBlock1D(
+              (blocks): ModuleList(
+                (0-1): 2 x Conv1dBlock(
+                  (block): Sequential(
+                    (0): Conv1d(512, 512, kernel_size=(5,), stride=(1,), padding=(2,))
+                    (1): GroupNorm(8, 512, eps=1e-05, affine=True)
+                    (2): Mish()
+                  )
+                )
+              )
+              (cond_encoder): Sequential(
+                (0): Mish()
+                (1): Linear(in_features=294, out_features=1024, bias=True)
+                (2): Unflatten(dim=-1, unflattened_size=(-1, 1))
+              )
+              (residual_conv): Identity()
+            )
+            (2): Upsample1d(
+              (conv): ConvTranspose1d(512, 512, kernel_size=(4,), stride=(2,), padding=(1,))
+            )
+          )
+          (1): ModuleList(
+            (0): ConditionalResidualBlock1D(
+              (blocks): ModuleList(
+                (0): Conv1dBlock(
+                  (block): Sequential(
+                    (0): Conv1d(1024, 256, kernel_size=(5,), stride=(1,), padding=(2,))
+                    (1): GroupNorm(8, 256, eps=1e-05, affine=True)
+                    (2): Mish()
+                  )
+                )
+                (1): Conv1dBlock(
+                  (block): Sequential(
+                    (0): Conv1d(256, 256, kernel_size=(5,), stride=(1,), padding=(2,))
+                    (1): GroupNorm(8, 256, eps=1e-05, affine=True)
+                    (2): Mish()
+                  )
+                )
+              )
+              (cond_encoder): Sequential(
+                (0): Mish()
+                (1): Linear(in_features=294, out_features=512, bias=True)
+                (2): Unflatten(dim=-1, unflattened_size=(-1, 1))
+              )
+              (residual_conv): Conv1d(1024, 256, kernel_size=(1,), stride=(1,))
+            )
+            (1): ConditionalResidualBlock1D(
+              (blocks): ModuleList(
+                (0-1): 2 x Conv1dBlock(
+                  (block): Sequential(
+                    (0): Conv1d(256, 256, kernel_size=(5,), stride=(1,), padding=(2,))
+                    (1): GroupNorm(8, 256, eps=1e-05, affine=True)
+                    (2): Mish()
+                  )
+                )
+              )
+              (cond_encoder): Sequential(
+                (0): Mish()
+                (1): Linear(in_features=294, out_features=512, bias=True)
+                (2): Unflatten(dim=-1, unflattened_size=(-1, 1))
+              )
+              (residual_conv): Identity()
+            )
+            (2): Upsample1d(
+              (conv): ConvTranspose1d(256, 256, kernel_size=(4,), stride=(2,), padding=(1,))
+            )
+          )
+        )
+        (down_modules): ModuleList(
+          (0): ModuleList(
+            (0): ConditionalResidualBlock1D(
+              (blocks): ModuleList(
+                (0): Conv1dBlock(
+                  (block): Sequential(
+                    (0): Conv1d(7, 256, kernel_size=(5,), stride=(1,), padding=(2,))
+                    (1): GroupNorm(8, 256, eps=1e-05, affine=True)
+                    (2): Mish()
+                  )
+                )
+                (1): Conv1dBlock(
+                  (block): Sequential(
+                    (0): Conv1d(256, 256, kernel_size=(5,), stride=(1,), padding=(2,))
+                    (1): GroupNorm(8, 256, eps=1e-05, affine=True)
+                    (2): Mish()
+                  )
+                )
+              )
+              (cond_encoder): Sequential(
+                (0): Mish()
+                (1): Linear(in_features=294, out_features=512, bias=True)
+                (2): Unflatten(dim=-1, unflattened_size=(-1, 1))
+              )
+              (residual_conv): Conv1d(7, 256, kernel_size=(1,), stride=(1,))
+            )
+            (1): ConditionalResidualBlock1D(
+              (blocks): ModuleList(
+                (0-1): 2 x Conv1dBlock(
+                  (block): Sequential(
+                    (0): Conv1d(256, 256, kernel_size=(5,), stride=(1,), padding=(2,))
+                    (1): GroupNorm(8, 256, eps=1e-05, affine=True)
+                    (2): Mish()
+                  )
+                )
+              )
+              (cond_encoder): Sequential(
+                (0): Mish()
+                (1): Linear(in_features=294, out_features=512, bias=True)
+                (2): Unflatten(dim=-1, unflattened_size=(-1, 1))
+              )
+              (residual_conv): Identity()
+            )
+            (2): Downsample1d(
+              (conv): Conv1d(256, 256, kernel_size=(3,), stride=(2,), padding=(1,))
+            )
+          )
+          (1): ModuleList(
+            (0): ConditionalResidualBlock1D(
+              (blocks): ModuleList(
+                (0): Conv1dBlock(
+                  (block): Sequential(
+                    (0): Conv1d(256, 512, kernel_size=(5,), stride=(1,), padding=(2,))
+                    (1): GroupNorm(8, 512, eps=1e-05, affine=True)
+                    (2): Mish()
+                  )
+                )
+                (1): Conv1dBlock(
+                  (block): Sequential(
+                    (0): Conv1d(512, 512, kernel_size=(5,), stride=(1,), padding=(2,))
+                    (1): GroupNorm(8, 512, eps=1e-05, affine=True)
+                    (2): Mish()
+                  )
+                )
+              )
+              (cond_encoder): Sequential(
+                (0): Mish()
+                (1): Linear(in_features=294, out_features=1024, bias=True)
+                (2): Unflatten(dim=-1, unflattened_size=(-1, 1))
+              )
+              (residual_conv): Conv1d(256, 512, kernel_size=(1,), stride=(1,))
+            )
+            (1): ConditionalResidualBlock1D(
+              (blocks): ModuleList(
+                (0-1): 2 x Conv1dBlock(
+                  (block): Sequential(
+                    (0): Conv1d(512, 512, kernel_size=(5,), stride=(1,), padding=(2,))
+                    (1): GroupNorm(8, 512, eps=1e-05, affine=True)
+                    (2): Mish()
+                  )
+                )
+              )
+              (cond_encoder): Sequential(
+                (0): Mish()
+                (1): Linear(in_features=294, out_features=1024, bias=True)
+                (2): Unflatten(dim=-1, unflattened_size=(-1, 1))
+              )
+              (residual_conv): Identity()
+            )
+            (2): Downsample1d(
+              (conv): Conv1d(512, 512, kernel_size=(3,), stride=(2,), padding=(1,))
+            )
+          )
+          (2): ModuleList(
+            (0): ConditionalResidualBlock1D(
+              (blocks): ModuleList(
+                (0): Conv1dBlock(
+                  (block): Sequential(
+                    (0): Conv1d(512, 1024, kernel_size=(5,), stride=(1,), padding=(2,))
+                    (1): GroupNorm(8, 1024, eps=1e-05, affine=True)
+                    (2): Mish()
+                  )
+                )
+                (1): Conv1dBlock(
+                  (block): Sequential(
+                    (0): Conv1d(1024, 1024, kernel_size=(5,), stride=(1,), padding=(2,))
+                    (1): GroupNorm(8, 1024, eps=1e-05, affine=True)
+                    (2): Mish()
+                  )
+                )
+              )
+              (cond_encoder): Sequential(
+                (0): Mish()
+                (1): Linear(in_features=294, out_features=2048, bias=True)
+                (2): Unflatten(dim=-1, unflattened_size=(-1, 1))
+              )
+              (residual_conv): Conv1d(512, 1024, kernel_size=(1,), stride=(1,))
+            )
+            (1): ConditionalResidualBlock1D(
+              (blocks): ModuleList(
+                (0-1): 2 x Conv1dBlock(
+                  (block): Sequential(
+                    (0): Conv1d(1024, 1024, kernel_size=(5,), stride=(1,), padding=(2,))
+                    (1): GroupNorm(8, 1024, eps=1e-05, affine=True)
+                    (2): Mish()
+                  )
+                )
+              )
+              (cond_encoder): Sequential(
+                (0): Mish()
+                (1): Linear(in_features=294, out_features=2048, bias=True)
+                (2): Unflatten(dim=-1, unflattened_size=(-1, 1))
+              )
+              (residual_conv): Identity()
+            )
+            (2): Identity()
+          )
+        )
+        (final_conv): Sequential(
+          (0): Conv1dBlock(
+            (block): Sequential(
+              (0): Conv1d(256, 256, kernel_size=(5,), stride=(1,), padding=(2,))
+              (1): GroupNorm(8, 256, eps=1e-05, affine=True)
+              (2): Mish()
+            )
+          )
+          (1): Conv1d(256, 7, kernel_size=(1,), stride=(1,))
+        )
+      )
+    )
+  )
+)
+
+SequenceDataset: loading dataset into memory...
+  0%|          | 0/200 [00:00<?, ?it/s] 20%|##        | 41/200 [00:00<00:00, 407.86it/s] 47%|####6     | 94/200 [00:00<00:00, 477.23it/s] 71%|#######1  | 142/200 [00:00<00:00, 459.87it/s] 94%|#########4| 189/200 [00:00<00:00, 395.79it/s]100%|##########| 200/200 [00:00<00:00, 400.42it/s]
+
+============= Training Dataset =============
+SequenceDataset (
+	path=/home/aurora/RoboMimic_/robomimic/robomimic/../datasets/lift/ph/low_dim_v141.hdf5
+	obs_keys=('object', 'robot0_eef_pos', 'robot0_eef_quat', 'robot0_gripper_qpos')
+	seq_length=15
+	filter_key=none
+	frame_stack=2
+	pad_seq_length=True
+	pad_frame_stack=True
+	goal_mode=none
+	cache_mode=low_dim
+	num_demos=200
+	num_sequences=9666
+)
+
+**************************************************
+Warnings generated by robomimic have been duplicated here (from above) for convenience. Please check them carefully.
+[33mROBOMIMIC WARNING(
+    No private macro file found!
+    It is recommended to use a private macro file
+    To setup, run: python /home/aurora/RoboMimic_/robomimic/robomimic/scripts/setup_macros.py
+)[0m
+**************************************************
+
+  0%|          | 0/100 [00:00<?, ?it/s]  1%|1         | 1/100 [00:13<21:45, 13.19s/it]  2%|2         | 2/100 [00:25<20:31, 12.56s/it]  2%|2         | 2/100 [00:37<30:15, 18.52s/it]
+Traceback (most recent call last):
+  File "train.py", line 428, in <module>
+    main(args)
+  File "train.py", line 379, in main
+    train(config, device=device)
+  File "train.py", line 196, in train
+    step_log = TrainUtils.run_epoch(
+  File "/home/aurora/RoboMimic_/robomimic/robomimic/utils/train_utils.py", line 559, in run_epoch
+    info = model.train_on_batch(input_batch, epoch, validate=validate)
+  File "/home/aurora/RoboMimic_/robomimic/robomimic/algo/diffusion_policy.py", line 219, in train_on_batch
+    policy_grad_norms = TorchUtils.backprop_for_loss(
+  File "/home/aurora/RoboMimic_/robomimic/robomimic/utils/torch_utils.py", line 188, in backprop_for_loss
+    loss.backward(retain_graph=retain_graph)
+  File "/home/aurora/anaconda3/envs/robomimic_venv/lib/python3.8/site-packages/torch/_tensor.py", line 487, in backward
+    torch.autograd.backward(
+  File "/home/aurora/anaconda3/envs/robomimic_venv/lib/python3.8/site-packages/torch/autograd/__init__.py", line 200, in backward
+    Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass
+KeyboardInterrupt
