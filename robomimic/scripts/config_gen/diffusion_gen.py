@@ -5,7 +5,7 @@ def make_generator_helper(args):
 
     generator = get_generator(
         algo_name="diffusion_policy",
-        config_file=os.path.join(base_path, 'robomimic/exps/templates/diffusion_policy.json'),
+        config_file=os.path.join(base_path, 'robomimic/exps/templates/diffusion_policy_.json'),
         args=args,
         algo_name_short=algo_name_short,
         pt=True,

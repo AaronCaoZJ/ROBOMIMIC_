@@ -228,22 +228,23 @@ def dataset_factory(config, obs_keys, filter_by_attribute=None, dataset_path=Non
         filter_by_attribute=filter_by_attribute
     )
 
-    ds_kwargs["hdf5_path"] = [ds_cfg["path"] for ds_cfg in config.train.data]
-    ds_kwargs["filter_by_attribute"] = [filter_by_attribute for ds_cfg in config.train.data]
-    ds_weights = [ds_cfg.get("weight", 1.0) for ds_cfg in config.train.data]
-    ds_labels = [ds_cfg.get("label", "dummy") for ds_cfg in config.train.data]
+    # ds_kwargs["hdf5_path"] = [ds_cfg["path"] for ds_cfg in config.train.data]
+    # ds_kwargs["filter_by_attribute"] = [filter_by_attribute for ds_cfg in config.train.data]
+    # ds_weights = [ds_cfg.get("weight", 1.0) for ds_cfg in config.train.data]
+    # ds_labels = [ds_cfg.get("label", "dummy") for ds_cfg in config.train.data]
 
-    meta_ds_kwargs = dict()
+    # meta_ds_kwargs = dict()
 
-    dataset = get_dataset(
-        ds_class=R2D2Dataset if config.train.data_format == "r2d2" else SequenceDataset,
-        ds_kwargs=ds_kwargs,
-        ds_weights=ds_weights,
-        ds_labels=ds_labels,
-        normalize_weights_by_ds_size=False,
-        meta_ds_class=MetaDataset,
-        meta_ds_kwargs=meta_ds_kwargs,
-    )
+    # dataset = get_dataset(
+    #     ds_class=R2D2Dataset if config.train.data_format == "r2d2" else SequenceDataset,
+    #     ds_kwargs=ds_kwargs,
+    #     ds_weights=ds_weights,
+    #     ds_labels=ds_labels,
+    #     normalize_weights_by_ds_size=False,
+    #     meta_ds_class=MetaDataset,
+    #     meta_ds_kwargs=meta_ds_kwargs,
+    # )
+    dataset = SequenceDataset(**ds_kwargs)
 
     return dataset
 

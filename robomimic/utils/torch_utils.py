@@ -4,6 +4,7 @@ This file contains some PyTorch utilities.
 import numpy as np
 import torch
 import torch.optim as optim
+import torch.nn.functional as F
 
 
 def soft_update(source, target, tau):

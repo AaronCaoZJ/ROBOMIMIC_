@@ -36,10 +36,10 @@
         }
     },
     "train": {
-        "data": null,
+        "data": "/root/autodl-tmp/ROBOMIMIC_/robomimic/datasets/square/ph/image.hdf5",
         "output_dir":"../diffusion_policy_trained_models",
         "num_data_workers": 0,
-        "hdf5_cache_mode": "low_dim",
+        "hdf5_cache_mode": "all",
         "hdf5_use_swmr": true,
         "hdf5_load_next_obs": false,
         "hdf5_normalize_obs": false,
@@ -48,12 +48,50 @@
         "pad_seq_length": true,
         "frame_stack": 2,
         "pad_frame_stack": true,
-        "dataset_keys": [
-            "actions"
-        ],
+        "dataset_keys": [],
+        "action_keys":{
+            "action_dict/abs_pos": {
+                "normalization": "min_max"
+            },
+            "action_dict/abs_rot_6d": {
+                "normalization": "min_max",
+                "format": "rot_6d"
+            },
+            "action_dict/gripper": {
+                "normalization": "min_max"
+            }
+        },
+        "action_config": {
+            "action_dict/cartesian_position": {
+                "normalization": "min_max"
+            },
+            "action_dict/abs_pos": {
+                "normalization": "min_max"
+            },
+            "action_dict/abs_rot_6d": {
+                "normalization": "min_max",
+                "format": "rot_6d"
+            },
+            "action_dict/abs_rot_axis_angle": {
+                "normalization": "min_max",
+                "format": "rot_axis_angle"
+            },
+            "action_dict/gripper": {
+                "normalization": "min_max"
+            },
+            "action_dict/gripper_position": {
+                "normalization": "min_max"
+            },
+            "action_dict/cartesian_velocity": {
+                "normalization": null
+            },
+            "action_dict/gripper_velocity": {
+                "normalization": null
+            }
+        },
         "goal_mode": null,
         "cuda": true,
-        "batch_size": 256,
+        "batch_size": 64,
         "num_epochs": 2000,
         "seed": 1
     },
@@ -77,8 +115,12 @@
         },
         "unet": {
             "enabled": true,
-            "diffusion_step_embed_dim": 256,
-            "down_dims": [256,512,1024],
+            "diffusion_step_embed_dim": 128,
+            "down_dims": [
+                256,
+                512,
+                1024
+            ],
             "kernel_size": 5,
             "n_groups": 8
         },
@@ -114,7 +156,10 @@
                     "robot0_gripper_qpos",
                     "object"
                 ],
-                "rgb": [],
+                "rgb": [
+                    "agentview_image",
+                    "robot0_eye_in_hand_image"
+                ],
                 "depth": [],
                 "scan": []
             },

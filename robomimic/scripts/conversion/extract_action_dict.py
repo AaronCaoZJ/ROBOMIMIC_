@@ -6,6 +6,7 @@ import h5py
 import numpy as np
 import torch
 import os
+import robomimic.utils.torch_utils as TorchUtils
 
 def extract_action_dict(args):    
     # find files
@@ -14,11 +15,11 @@ def extract_action_dict(args):
     SPECS = [
         dict(
             key="actions",
-            is_absolute=False,
+            is_absolute=True,
         ),
         dict(
             key="actions_abs",
-            is_absolute=True,
+            is_absolute=False,
         )
     ]
 

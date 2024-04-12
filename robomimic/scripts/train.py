@@ -74,7 +74,7 @@ def train(config, device, auto_remove_exp=False):
 
     # make sure the dataset exists
     eval_dataset_cfg = config.train.data[0]
-    dataset_path = os.path.expandvars(os.path.expanduser(eval_dataset_cfg["path"]))
+    dataset_path = os.path.expanduser(config.train.data)
     ds_format = config.train.data_format
     if not os.path.exists(dataset_path):
         raise Exception("Dataset at provided path {} not found!".format(dataset_path))

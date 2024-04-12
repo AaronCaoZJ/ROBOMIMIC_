@@ -13,12 +13,11 @@ import robomimic
 import robomimic.macros as Macros
 from robomimic.scripts.conversion.extract_action_dict import extract_action_dict
 
-import mimicgen
-from mimicgen.scripts.add_datagen_info import add_datagen_info
+# import mimicgen
+# from mimicgen.scripts.add_datagen_info import add_datagen_info
 
 DATASETS = [
-    "/tmp/coffee/src_10.hdf5",
-    "/tmp/stack/src_10.hdf5",
+    "/root/autodl-tmp/ROBOMIMIC_/robomimic/datasets/square/ph/abs.hdf5",
 ]
 
 
@@ -39,8 +38,9 @@ def convert_actions_in_dataset(dataset_path, output_name=None, absolute_mg=False
         args.output = os.path.join(os.path.dirname(dataset_path), output_name)
         new_ds_path = args.output
     else:
-        args.output = None
-    add_datagen_info(args)
+        pass
+    #     args.output = None
+    # add_datagen_info(args)
 
     # next convert actions to dict
     args = argparse.Namespace()
@@ -59,7 +59,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "--output_name",
         type=str,
-        default=None,
+        default="abs.hdf5",
     )
     parser.add_argument(
         "--absolute_mg",
