@@ -1,0 +1,488 @@
+
+============= Initialized Observation Utils with Obs Spec =============
+
+using obs modality: low_dim with keys: ['robot0_gripper_qpos', 'robot0_eef_pos', 'robot0_eef_quat', 'object']
+using obs modality: rgb with keys: ['agentview_image', 'robot0_eye_in_hand_image']
+using obs modality: depth with keys: []
+using obs modality: scan with keys: []
+
+============= Loaded Environment Metadata =============
+obs key agentview_image with shape (84, 84, 3)
+obs key object with shape (10,)
+obs key robot0_eef_pos with shape (3,)
+obs key robot0_eef_quat with shape (4,)
+obs key robot0_eye_in_hand_image with shape (84, 84, 3)
+obs key robot0_gripper_qpos with shape (2,)
+[1m[33m[robosuite WARNING] [0mNo private macro file found! (macros.py:53)
+[1m[33m[robosuite WARNING] [0mIt is recommended to use a private macro file (macros.py:54)
+[1m[33m[robosuite WARNING] [0mTo setup, run: python /root/autodl-tmp/ROBOMIMIC_/robosuite/robosuite/scripts/setup_macros.py (macros.py:55)
+WARNING: could not import mimicgen robosuite envs
+WARNING: robosuite task zoo environments not imported since robosuite task zoo is not installed!
+Created environment with name Lift
+Action size is 7
+[33mROBOMIMIC WARNING(
+    No environment version found in dataset!
+    Cannot verify if dataset and installed environment versions match
+)[0m
+FrameStackWrapper(
+    num_frames=2
+    env=Lift
+    {
+        "camera_depths": false,
+        "camera_heights": 84,
+        "camera_names": [
+            "agentview",
+            "robot0_eye_in_hand"
+        ],
+        "camera_widths": 84,
+        "control_freq": 20,
+        "controller_configs": {
+            "control_delta": true,
+            "damping": 1,
+            "damping_limits": [
+                0,
+                10
+            ],
+            "impedance_mode": "fixed",
+            "input_max": 1,
+            "input_min": -1,
+            "interpolation": null,
+            "kp": 150,
+            "kp_limits": [
+                0,
+                300
+            ],
+            "orientation_limits": null,
+            "output_max": [
+                0.05,
+                0.05,
+                0.05,
+                0.5,
+                0.5,
+                0.5
+            ],
+            "output_min": [
+                -0.05,
+                -0.05,
+                -0.05,
+                -0.5,
+                -0.5,
+                -0.5
+            ],
+            "position_limits": null,
+            "ramp_ratio": 0.2,
+            "type": "OSC_POSE",
+            "uncouple_pos_ori": true
+        },
+        "has_offscreen_renderer": true,
+        "has_renderer": false,
+        "ignore_done": true,
+        "render_gpu_device_id": 0,
+        "reward_shaping": false,
+        "robots": [
+            "Panda"
+        ],
+        "use_camera_obs": true,
+        "use_object_obs": true
+    }
+)
+
+/root/miniconda3/envs/robomimic_autodl_venv/lib/python3.8/site-packages/torchvision/models/_utils.py:208: UserWarning: The parameter 'pretrained' is deprecated since 0.13 and may be removed in the future, please use 'weights' instead.
+  warnings.warn(
+/root/miniconda3/envs/robomimic_autodl_venv/lib/python3.8/site-packages/torchvision/models/_utils.py:223: UserWarning: Arguments other than a weight enum or `None` for 'weights' are deprecated since 0.13 and may be removed in the future. The current behavior is equivalent to passing `weights=None`.
+  warnings.warn(msg)
+number of parameters: 5.286657e+07
+
+============= Model Summary =============
+DiffusionPolicyUMamba (
+  ModuleDict(
+    (policy): ModuleDict(
+      (obs_encoder): ObservationGroupEncoder(
+          group=obs
+          ObservationEncoder(
+              Key(
+                  name=agentview_image
+                  shape=[3, 84, 84]
+                  modality=rgb
+                  randomizer=CropRandomizer(input_shape=[3, 84, 84], crop_size=[76, 76], num_crops=1)
+                  net=VisualCore(
+                    input_shape=[3, 76, 76]
+                    output_shape=[64]
+                    backbone_net=ResNet18Conv(input_channel=3, input_coord_conv=False)
+                    pool_net=SpatialSoftmax(num_kp=32, temperature=1.0, noise=0.0)
+                  )
+                  sharing_from=None
+              )
+              Key(
+                  name=object
+                  shape=[10]
+                  modality=low_dim
+                  randomizer=None
+                  net=None
+                  sharing_from=None
+              )
+              Key(
+                  name=robot0_eef_pos
+                  shape=[3]
+                  modality=low_dim
+                  randomizer=None
+                  net=None
+                  sharing_from=None
+              )
+              Key(
+                  name=robot0_eef_quat
+                  shape=[4]
+                  modality=low_dim
+                  randomizer=None
+                  net=None
+                  sharing_from=None
+              )
+              Key(
+                  name=robot0_eye_in_hand_image
+                  shape=[3, 84, 84]
+                  modality=rgb
+                  randomizer=CropRandomizer(input_shape=[3, 84, 84], crop_size=[76, 76], num_crops=1)
+                  net=VisualCore(
+                    input_shape=[3, 76, 76]
+                    output_shape=[64]
+                    backbone_net=ResNet18Conv(input_channel=3, input_coord_conv=False)
+                    pool_net=SpatialSoftmax(num_kp=32, temperature=1.0, noise=0.0)
+                  )
+                  sharing_from=None
+              )
+              Key(
+                  name=robot0_gripper_qpos
+                  shape=[2]
+                  modality=low_dim
+                  randomizer=None
+                  net=None
+                  sharing_from=None
+              )
+              output_shape=[147]
+          )
+      )
+      (noise_pred_net): ConditionalUnet1D(
+        (mamba_layer): MambaLayer(
+          (norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+          (mamba): Mamba(
+            (in_proj): Linear(in_features=1024, out_features=4096, bias=False)
+            (conv1d): Conv1d(2048, 2048, kernel_size=(4,), stride=(1,), padding=(3,), groups=2048)
+            (act): SiLU()
+            (x_proj): Linear(in_features=2048, out_features=96, bias=False)
+            (dt_proj): Linear(in_features=64, out_features=2048, bias=True)
+            (out_proj): Linear(in_features=2048, out_features=1024, bias=False)
+          )
+        )
+        (diffusion_step_encoder): Sequential(
+          (0): SinusoidalPosEmb()
+          (1): Linear(in_features=256, out_features=1024, bias=True)
+          (2): Mish()
+          (3): Linear(in_features=1024, out_features=256, bias=True)
+        )
+        (up_modules): ModuleList(
+          (0): ModuleList(
+            (0): ConditionalResidualBlock1D(
+              (blocks): ModuleList(
+                (0): Conv1dBlock(
+                  (block): Sequential(
+                    (0): Conv1d(2048, 512, kernel_size=(5,), stride=(1,), padding=(2,))
+                    (1): GroupNorm(8, 512, eps=1e-05, affine=True)
+                    (2): Mish()
+                  )
+                )
+                (1): Conv1dBlock(
+                  (block): Sequential(
+                    (0): Conv1d(512, 512, kernel_size=(5,), stride=(1,), padding=(2,))
+                    (1): GroupNorm(8, 512, eps=1e-05, affine=True)
+                    (2): Mish()
+                  )
+                )
+              )
+              (cond_encoder): Sequential(
+                (0): Mish()
+                (1): Linear(in_features=550, out_features=1024, bias=True)
+                (2): Unflatten(dim=-1, unflattened_size=(-1, 1))
+              )
+              (residual_conv): Conv1d(2048, 512, kernel_size=(1,), stride=(1,))
+            )
+            (1): ConditionalResidualBlock1D(
+              (blocks): ModuleList(
+                (0-1): 2 x Conv1dBlock(
+                  (block): Sequential(
+                    (0): Conv1d(512, 512, kernel_size=(5,), stride=(1,), padding=(2,))
+                    (1): GroupNorm(8, 512, eps=1e-05, affine=True)
+                    (2): Mish()
+                  )
+                )
+              )
+              (cond_encoder): Sequential(
+                (0): Mish()
+                (1): Linear(in_features=550, out_features=1024, bias=True)
+                (2): Unflatten(dim=-1, unflattened_size=(-1, 1))
+              )
+              (residual_conv): Identity()
+            )
+            (2): Upsample1d(
+              (conv): ConvTranspose1d(512, 512, kernel_size=(4,), stride=(2,), padding=(1,))
+            )
+          )
+          (1): ModuleList(
+            (0): ConditionalResidualBlock1D(
+              (blocks): ModuleList(
+                (0): Conv1dBlock(
+                  (block): Sequential(
+                    (0): Conv1d(1024, 256, kernel_size=(5,), stride=(1,), padding=(2,))
+                    (1): GroupNorm(8, 256, eps=1e-05, affine=True)
+                    (2): Mish()
+                  )
+                )
+                (1): Conv1dBlock(
+                  (block): Sequential(
+                    (0): Conv1d(256, 256, kernel_size=(5,), stride=(1,), padding=(2,))
+                    (1): GroupNorm(8, 256, eps=1e-05, affine=True)
+                    (2): Mish()
+                  )
+                )
+              )
+              (cond_encoder): Sequential(
+                (0): Mish()
+                (1): Linear(in_features=550, out_features=512, bias=True)
+                (2): Unflatten(dim=-1, unflattened_size=(-1, 1))
+              )
+              (residual_conv): Conv1d(1024, 256, kernel_size=(1,), stride=(1,))
+            )
+            (1): ConditionalResidualBlock1D(
+              (blocks): ModuleList(
+                (0-1): 2 x Conv1dBlock(
+                  (block): Sequential(
+                    (0): Conv1d(256, 256, kernel_size=(5,), stride=(1,), padding=(2,))
+                    (1): GroupNorm(8, 256, eps=1e-05, affine=True)
+                    (2): Mish()
+                  )
+                )
+              )
+              (cond_encoder): Sequential(
+                (0): Mish()
+                (1): Linear(in_features=550, out_features=512, bias=True)
+                (2): Unflatten(dim=-1, unflattened_size=(-1, 1))
+              )
+              (residual_conv): Identity()
+            )
+            (2): Upsample1d(
+              (conv): ConvTranspose1d(256, 256, kernel_size=(4,), stride=(2,), padding=(1,))
+            )
+          )
+        )
+        (down_modules): ModuleList(
+          (0): ModuleList(
+            (0): ConditionalResidualBlock1D(
+              (blocks): ModuleList(
+                (0): Conv1dBlock(
+                  (block): Sequential(
+                    (0): Conv1d(10, 256, kernel_size=(5,), stride=(1,), padding=(2,))
+                    (1): GroupNorm(8, 256, eps=1e-05, affine=True)
+                    (2): Mish()
+                  )
+                )
+                (1): Conv1dBlock(
+                  (block): Sequential(
+                    (0): Conv1d(256, 256, kernel_size=(5,), stride=(1,), padding=(2,))
+                    (1): GroupNorm(8, 256, eps=1e-05, affine=True)
+                    (2): Mish()
+                  )
+                )
+              )
+              (cond_encoder): Sequential(
+                (0): Mish()
+                (1): Linear(in_features=550, out_features=512, bias=True)
+                (2): Unflatten(dim=-1, unflattened_size=(-1, 1))
+              )
+              (residual_conv): Conv1d(10, 256, kernel_size=(1,), stride=(1,))
+            )
+            (1): ConditionalResidualBlock1D(
+              (blocks): ModuleList(
+                (0-1): 2 x Conv1dBlock(
+                  (block): Sequential(
+                    (0): Conv1d(256, 256, kernel_size=(5,), stride=(1,), padding=(2,))
+                    (1): GroupNorm(8, 256, eps=1e-05, affine=True)
+                    (2): Mish()
+                  )
+                )
+              )
+              (cond_encoder): Sequential(
+                (0): Mish()
+                (1): Linear(in_features=550, out_features=512, bias=True)
+                (2): Unflatten(dim=-1, unflattened_size=(-1, 1))
+              )
+              (residual_conv): Identity()
+            )
+            (2): Downsample1d(
+              (conv): Conv1d(256, 256, kernel_size=(3,), stride=(2,), padding=(1,))
+            )
+          )
+          (1): ModuleList(
+            (0): ConditionalResidualBlock1D(
+              (blocks): ModuleList(
+                (0): Conv1dBlock(
+                  (block): Sequential(
+                    (0): Conv1d(256, 512, kernel_size=(5,), stride=(1,), padding=(2,))
+                    (1): GroupNorm(8, 512, eps=1e-05, affine=True)
+                    (2): Mish()
+                  )
+                )
+                (1): Conv1dBlock(
+                  (block): Sequential(
+                    (0): Conv1d(512, 512, kernel_size=(5,), stride=(1,), padding=(2,))
+                    (1): GroupNorm(8, 512, eps=1e-05, affine=True)
+                    (2): Mish()
+                  )
+                )
+              )
+              (cond_encoder): Sequential(
+                (0): Mish()
+                (1): Linear(in_features=550, out_features=1024, bias=True)
+                (2): Unflatten(dim=-1, unflattened_size=(-1, 1))
+              )
+              (residual_conv): Conv1d(256, 512, kernel_size=(1,), stride=(1,))
+            )
+            (1): ConditionalResidualBlock1D(
+              (blocks): ModuleList(
+                (0-1): 2 x Conv1dBlock(
+                  (block): Sequential(
+                    (0): Conv1d(512, 512, kernel_size=(5,), stride=(1,), padding=(2,))
+                    (1): GroupNorm(8, 512, eps=1e-05, affine=True)
+                    (2): Mish()
+                  )
+                )
+              )
+              (cond_encoder): Sequential(
+                (0): Mish()
+                (1): Linear(in_features=550, out_features=1024, bias=True)
+                (2): Unflatten(dim=-1, unflattened_size=(-1, 1))
+              )
+              (residual_conv): Identity()
+            )
+            (2): Downsample1d(
+              (conv): Conv1d(512, 512, kernel_size=(3,), stride=(2,), padding=(1,))
+            )
+          )
+          (2): ModuleList(
+            (0): ConditionalResidualBlock1D(
+              (blocks): ModuleList(
+                (0): Conv1dBlock(
+                  (block): Sequential(
+                    (0): Conv1d(512, 1024, kernel_size=(5,), stride=(1,), padding=(2,))
+                    (1): GroupNorm(8, 1024, eps=1e-05, affine=True)
+                    (2): Mish()
+                  )
+                )
+                (1): Conv1dBlock(
+                  (block): Sequential(
+                    (0): Conv1d(1024, 1024, kernel_size=(5,), stride=(1,), padding=(2,))
+                    (1): GroupNorm(8, 1024, eps=1e-05, affine=True)
+                    (2): Mish()
+                  )
+                )
+              )
+              (cond_encoder): Sequential(
+                (0): Mish()
+                (1): Linear(in_features=550, out_features=2048, bias=True)
+                (2): Unflatten(dim=-1, unflattened_size=(-1, 1))
+              )
+              (residual_conv): Conv1d(512, 1024, kernel_size=(1,), stride=(1,))
+            )
+            (1): ConditionalResidualBlock1D(
+              (blocks): ModuleList(
+                (0-1): 2 x Conv1dBlock(
+                  (block): Sequential(
+                    (0): Conv1d(1024, 1024, kernel_size=(5,), stride=(1,), padding=(2,))
+                    (1): GroupNorm(8, 1024, eps=1e-05, affine=True)
+                    (2): Mish()
+                  )
+                )
+              )
+              (cond_encoder): Sequential(
+                (0): Mish()
+                (1): Linear(in_features=550, out_features=2048, bias=True)
+                (2): Unflatten(dim=-1, unflattened_size=(-1, 1))
+              )
+              (residual_conv): Identity()
+            )
+            (2): Identity()
+          )
+        )
+        (final_conv): Sequential(
+          (0): Conv1dBlock(
+            (block): Sequential(
+              (0): Conv1d(256, 256, kernel_size=(5,), stride=(1,), padding=(2,))
+              (1): GroupNorm(8, 256, eps=1e-05, affine=True)
+              (2): Mish()
+            )
+          )
+          (1): Conv1d(256, 10, kernel_size=(1,), stride=(1,))
+        )
+      )
+    )
+  )
+)
+
+SequenceDataset: loading dataset into memory...
+  0%|                                                                     | 0/200 [00:00<?, ?it/s] 14%|########2                                                  | 28/200 [00:00<00:00, 276.41it/s] 28%|################8                                          | 57/200 [00:00<00:00, 282.34it/s] 44%|#########################6                                 | 87/200 [00:00<00:00, 288.94it/s] 58%|#################################6                        | 116/200 [00:00<00:00, 267.43it/s] 72%|#########################################4                | 143/200 [00:00<00:00, 252.75it/s] 84%|#################################################         | 169/200 [00:00<00:00, 246.17it/s] 97%|########################################################2 | 194/200 [00:00<00:00, 238.59it/s]100%|##########################################################| 200/200 [00:00<00:00, 252.36it/s]
+SequenceDataset: caching get_item calls...
+  0%|                                                                    | 0/9666 [00:00<?, ?it/s]SequenceDataset: normalizing actions...
+
+  0%|                                                                     | 0/199 [00:00<?, ?it/s][A
+ 59%|#################################7                       | 118/199 [00:00<00:00, 1179.14it/s][A100%|#########################################################| 199/199 [00:00<00:00, 1223.84it/s]
+  0%|                                                            | 1/9666 [00:00<26:47,  6.01it/s]  1%|4                                                         | 70/9666 [00:00<00:29, 320.99it/s]  1%|8                                                        | 140/9666 [00:00<00:20, 471.35it/s]  2%|#2                                                       | 210/9666 [00:00<00:17, 553.42it/s]  3%|#6                                                       | 279/9666 [00:00<00:15, 599.65it/s]  4%|##                                                       | 349/9666 [00:00<00:14, 631.81it/s]  4%|##4                                                      | 419/9666 [00:00<00:14, 651.43it/s]  5%|##8                                                      | 488/9666 [00:00<00:13, 662.87it/s]  6%|###2                                                     | 558/9666 [00:00<00:13, 672.46it/s]  6%|###7                                                     | 628/9666 [00:01<00:13, 679.46it/s]  7%|####1                                                    | 698/9666 [00:01<00:13, 684.02it/s]  8%|####7                                                    | 803/9666 [00:01<00:11, 794.38it/s] 10%|#####4                                                   | 921/9666 [00:01<00:09, 910.37it/s] 11%|#####9                                                 | 1044/9666 [00:01<00:08, 1004.04it/s] 12%|######6                                                | 1162/9666 [00:01<00:08, 1055.64it/s] 13%|#######2                                               | 1282/9666 [00:01<00:07, 1098.84it/s] 15%|#######9                                               | 1402/9666 [00:01<00:07, 1126.26it/s] 16%|########6                                              | 1520/9666 [00:01<00:07, 1140.99it/s] 17%|#########3                                             | 1643/9666 [00:01<00:06, 1165.48it/s] 18%|##########                                             | 1767/9666 [00:02<00:06, 1186.65it/s] 20%|##########7                                            | 1886/9666 [00:02<00:06, 1183.08it/s] 21%|###########4                                           | 2005/9666 [00:02<00:06, 1184.94it/s] 22%|############                                           | 2124/9666 [00:02<00:06, 1133.50it/s] 23%|############7                                          | 2238/9666 [00:02<00:06, 1073.81it/s] 24%|#############3                                         | 2347/9666 [00:02<00:06, 1077.96it/s] 26%|##############                                         | 2470/9666 [00:02<00:06, 1119.64it/s] 27%|##############7                                        | 2586/9666 [00:02<00:06, 1129.97it/s] 28%|###############4                                       | 2708/9666 [00:02<00:06, 1153.93it/s] 29%|################1                                      | 2832/9666 [00:03<00:05, 1177.16it/s] 31%|################7                                      | 2951/9666 [00:03<00:05, 1164.65it/s] 32%|#################4                                     | 3068/9666 [00:03<00:05, 1141.06it/s] 33%|##################1                                    | 3188/9666 [00:03<00:05, 1156.55it/s] 34%|##################8                                    | 3306/9666 [00:03<00:05, 1163.08it/s] 35%|###################4                                   | 3425/9666 [00:03<00:05, 1169.59it/s] 37%|####################1                                  | 3543/9666 [00:03<00:05, 1136.89it/s] 38%|####################8                                  | 3657/9666 [00:03<00:05, 1088.16it/s] 39%|#####################4                                 | 3767/9666 [00:03<00:05, 1079.70it/s] 40%|######################                                 | 3876/9666 [00:03<00:05, 1078.55it/s] 41%|######################6                                | 3985/9666 [00:04<00:05, 1051.28it/s] 42%|#######################2                               | 4091/9666 [00:04<00:05, 1027.82it/s] 43%|#######################8                               | 4194/9666 [00:04<00:05, 1011.47it/s] 44%|########################4                              | 4300/9666 [00:04<00:05, 1023.71it/s] 46%|#########################                              | 4403/9666 [00:04<00:05, 1022.01it/s] 47%|#########################7                             | 4518/9666 [00:04<00:04, 1058.50it/s] 48%|##########################3                            | 4625/9666 [00:04<00:04, 1056.17it/s] 49%|##########################9                            | 4736/9666 [00:04<00:04, 1071.55it/s] 50%|###########################5                           | 4848/9666 [00:04<00:04, 1083.96it/s] 51%|############################2                          | 4973/9666 [00:04<00:04, 1132.36it/s] 53%|############################9                          | 5087/9666 [00:05<00:04, 1087.12it/s] 54%|#############################5                         | 5197/9666 [00:05<00:04, 1060.95it/s] 55%|##############################1                        | 5304/9666 [00:05<00:04, 1054.03it/s] 56%|##############################8                        | 5413/9666 [00:05<00:04, 1062.86it/s] 57%|###############################4                       | 5524/9666 [00:05<00:03, 1076.28it/s] 58%|################################                       | 5632/9666 [00:05<00:03, 1065.62it/s] 59%|################################7                      | 5750/9666 [00:05<00:03, 1097.49it/s] 61%|#################################3                     | 5869/9666 [00:05<00:03, 1121.28it/s] 62%|##################################                     | 5982/9666 [00:05<00:03, 1113.77it/s] 63%|##################################7                    | 6103/9666 [00:06<00:03, 1141.26it/s] 64%|###################################3                   | 6219/9666 [00:06<00:03, 1144.56it/s] 66%|####################################                   | 6336/9666 [00:06<00:02, 1149.95it/s] 67%|####################################7                  | 6454/9666 [00:06<00:02, 1158.51it/s] 68%|#####################################3                 | 6570/9666 [00:06<00:02, 1141.44it/s] 69%|######################################                 | 6687/9666 [00:06<00:02, 1146.91it/s] 70%|######################################7                | 6802/9666 [00:06<00:02, 1115.64it/s] 72%|#######################################3               | 6924/9666 [00:06<00:02, 1144.59it/s] 73%|########################################               | 7042/9666 [00:06<00:02, 1153.34it/s] 74%|########################################7              | 7168/9666 [00:06<00:02, 1182.08it/s] 75%|#########################################4             | 7287/9666 [00:07<00:02, 1177.83it/s] 77%|##########################################1            | 7405/9666 [00:07<00:01, 1164.51it/s] 78%|##########################################8            | 7522/9666 [00:07<00:01, 1157.15it/s] 79%|###########################################4           | 7644/9666 [00:07<00:01, 1173.88it/s] 80%|############################################2          | 7768/9666 [00:07<00:01, 1190.78it/s] 82%|############################################9          | 7892/9666 [00:07<00:01, 1203.94it/s] 83%|#############################################5         | 8013/9666 [00:07<00:01, 1201.11it/s] 84%|##############################################2        | 8134/9666 [00:07<00:01, 1193.79it/s] 85%|##############################################9        | 8255/9666 [00:07<00:01, 1196.34it/s] 87%|###############################################6       | 8378/9666 [00:07<00:01, 1206.31it/s] 88%|################################################3      | 8505/9666 [00:08<00:00, 1222.49it/s] 89%|#################################################      | 8629/9666 [00:08<00:00, 1225.45it/s] 91%|#################################################7     | 8752/9666 [00:08<00:00, 1225.10it/s] 92%|##################################################4    | 8875/9666 [00:08<00:00, 1177.43it/s] 93%|###################################################1   | 8994/9666 [00:08<00:00, 1107.81it/s] 94%|###################################################8   | 9106/9666 [00:08<00:00, 1069.76it/s] 95%|####################################################4  | 9214/9666 [00:08<00:00, 1062.90it/s] 97%|#####################################################  | 9330/9666 [00:08<00:00, 1088.63it/s] 98%|#####################################################7 | 9454/9666 [00:08<00:00, 1130.93it/s] 99%|######################################################5| 9580/9666 [00:09<00:00, 1167.24it/s]100%|#######################################################| 9666/9666 [00:09<00:00, 1063.84it/s]
+
+============= Training Dataset =============
+SequenceDataset (
+	path=/root/autodl-tmp/ROBOMIMIC_/robomimic/datasets/lift/ph/image_abs_action_dict.hdf5
+	obs_keys=('agentview_image', 'object', 'robot0_eef_pos', 'robot0_eef_quat', 'robot0_eye_in_hand_image', 'robot0_gripper_qpos')
+	seq_length=15
+	filter_key=none
+	frame_stack=2
+	pad_seq_length=True
+	pad_frame_stack=True
+	goal_mode=none
+	cache_mode=all
+	num_demos=200
+	num_sequences=9666
+)
+
+**************************************************
+Warnings generated by robomimic have been duplicated here (from above) for convenience. Please check them carefully.
+[33mROBOMIMIC WARNING(
+    No private macro file found!
+    It is recommended to use a private macro file
+    To setup, run: python /root/autodl-tmp/ROBOMIMIC_/robomimic/robomimic/scripts/setup_macros.py
+)[0m
+[33mROBOMIMIC WARNING(
+    No environment version found in dataset!
+    Cannot verify if dataset and installed environment versions match
+)[0m
+**************************************************
+
+  0%|                                                                     | 0/100 [00:00<?, ?it/s]  0%|                                                                     | 0/100 [00:01<?, ?it/s]
+run failed with error:
+shape '[64, 1, 1024]' is invalid for input of size 262144
+
+Traceback (most recent call last):
+  File "train.py", line 511, in main
+    important_stats = train(config, device=device, auto_remove_exp=args.auto_remove_exp)
+  File "train.py", line 222, in train
+    step_log = TrainUtils.run_epoch(
+  File "/root/autodl-tmp/ROBOMIMIC_/robomimic/robomimic/utils/train_utils.py", line 685, in run_epoch
+    info = model.train_on_batch(input_batch, epoch, validate=validate)
+  File "/root/autodl-tmp/ROBOMIMIC_/robomimic/robomimic/algo/diffusion_policy_umamba.py", line 208, in train_on_batch
+    noise_pred = self.nets['policy']['noise_pred_net'](
+  File "/root/miniconda3/envs/robomimic_autodl_venv/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1501, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/root/autodl-tmp/ROBOMIMIC_/robomimic/robomimic/algo/diffusion_policy_umamba.py", line 706, in forward
+    x = self.mamba_layer(x)
+  File "/root/miniconda3/envs/robomimic_autodl_venv/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1501, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/root/autodl-tmp/ROBOMIMIC_/robomimic/robomimic/algo/diffusion_policy_umamba.py", line 573, in forward
+    x_flat = x.reshape(B, 1, C).transpose(-1, -2)
+RuntimeError: shape '[64, 1, 1024]' is invalid for input of size 262144
+

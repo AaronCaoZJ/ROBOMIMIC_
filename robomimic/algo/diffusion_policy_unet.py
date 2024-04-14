@@ -21,7 +21,7 @@ import robomimic.utils.obs_utils as ObsUtils
 
 from robomimic.algo import register_algo_factory_func, PolicyAlgo
 
-@register_algo_factory_func("diffusion_policy")
+@register_algo_factory_func("diffusion_policy_unet")
 def algo_config_to_class(algo_config):
     """
     Maps algo config to the BC algo class to instantiate, along with additional algo kwargs.
@@ -36,6 +36,8 @@ def algo_config_to_class(algo_config):
 
     if algo_config.unet.enabled:
         return DiffusionPolicyUNet, {}
+    elif algo_config.umamba.enabled:
+        raise NotImplementedError()
     elif algo_config.transformer.enabled:
         raise NotImplementedError()
     else:

@@ -1,5 +1,5 @@
 {
-    "algo_name": "diffusion_policy",
+    "algo_name": "diffusion_policy_umamba",
     "experiment": {
         "name": "test",
         "validate": false,
@@ -36,7 +36,7 @@
         }
     },
     "train": {
-        "data": "/root/autodl-tmp/ROBOMIMIC_/robomimic/datasets/can/ph/image_abs_action_dict.hdf5",
+        "data": "/root/autodl-tmp/ROBOMIMIC_/robomimic/datasets/lift/ph/image_abs_action_dict.hdf5",
         "output_dir":"../diffusion_policy_trained_models",
         "num_data_workers": 2,
         "hdf5_cache_mode": "all",
@@ -113,7 +113,7 @@
             "action_horizon": 8,
             "prediction_horizon": 16
         },
-        "unet": {
+        "umamba": {
             "enabled": true,
             "diffusion_step_embed_dim": 128,
             "down_dims": [
