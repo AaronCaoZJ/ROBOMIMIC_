@@ -102,7 +102,7 @@ def optimizer_from_optim_params(net_optim_params, net):
     Returns:
         optimizer (torch.optim.Optimizer): optimizer
     """
-    optimizer_type = net_optim_params.get("optimizer_type", "adam")
+    optimizer_type = net_optim_params.get("optimizer_type", "adamw")
     lr = net_optim_params["learning_rate"]["initial"]
 
     if optimizer_type == "adam":

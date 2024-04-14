@@ -18,4 +18,4 @@ def traverse_datasets(hdf_file):
     return None
 
 # 传入路径即可
-traverse_datasets('/root/autodl-tmp/ROBOMIMIC_/robomimic/datasets/lift/ph/abs_image.hdf5')
+traverse_datasets('/root/autodl-tmp/ROBOMIMIC_/robomimic/datasets/can/ph/abs_image.hdf5')

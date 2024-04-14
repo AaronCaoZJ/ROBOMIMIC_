@@ -36,9 +36,9 @@
         }
     },
     "train": {
-        "data": "/root/autodl-tmp/ROBOMIMIC_/robomimic/datasets/square/ph/image.hdf5",
+        "data": "/root/autodl-tmp/ROBOMIMIC_/robomimic/datasets/can/ph/image_abs_action_dict.hdf5",
         "output_dir":"../diffusion_policy_trained_models",
-        "num_data_workers": 0,
+        "num_data_workers": 2,
         "hdf5_cache_mode": "all",
         "hdf5_use_swmr": true,
         "hdf5_load_next_obs": false,
@@ -129,7 +129,7 @@
             "power": 0.75
         },
         "ddpm": {
-            "enabled": true,
+            "enabled": false,
             "num_train_timesteps": 100,
             "num_inference_timesteps": 100,
             "beta_schedule": "squaredcos_cap_v2",
@@ -137,7 +137,7 @@
             "prediction_type": "epsilon"
         },
         "ddim": {
-            "enabled": false,
+            "enabled": true,
             "num_train_timesteps": 100,
             "num_inference_timesteps": 10,
             "beta_schedule": "squaredcos_cap_v2",
